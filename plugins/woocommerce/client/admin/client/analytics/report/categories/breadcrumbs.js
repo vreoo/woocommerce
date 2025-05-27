@@ -15,15 +15,7 @@ export default class CategoryBreadcrumbs extends Component {
 
 		while ( parent ) {
 			const parentCategory = categories.get( parent );
-			console.log(
-				`Looking for parent category with ID ${ parent } in categories collection.`
-			);
-			if ( ! parentCategory ) {
-				console.warn(
-					`Category with ID ${ parent } not found in categories collection.`
-				);
-				break;
-			}
+			if ( ! parentCategory ) break;
 			ancestors.unshift( parent );
 			parent = parentCategory.parent;
 		}
