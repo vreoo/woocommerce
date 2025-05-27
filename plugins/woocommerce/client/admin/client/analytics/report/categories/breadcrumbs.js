@@ -11,11 +11,23 @@ import { getNewPath, getPersistedQuery } from '@woocommerce/navigation';
 export default class CategoryBreadcrumbs extends Component {
 	getCategoryAncestorIds( category, categories ) {
 		const ancestors = [];
-		let parent = category.parent;
+		let parent = category?.parent;
+
 		while ( parent ) {
+			const parentCategory = categories.get( parent );
+			console.log(
+				`Looking for parent category with ID ${ parent } in categories collection.`
+			);
+			if ( ! parentCategory ) {
+				console.warn(
+					`Category with ID ${ parent } not found in categories collection.`
+				);
+				break;
+			}
 			ancestors.unshift( parent );
-			parent = categories.get( parent ).parent;
+			parent = parentCategory.parent;
 		}
+
 		return ancestors;
 	}
 
